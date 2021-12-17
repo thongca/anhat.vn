@@ -1,0 +1,8 @@
+E:\16.HfMartVn\Hfmart\Hfmart.File\obj\Release\net5.0\PubTmp\Out\Hfmart.File.exe
+E:\16.HfMartVn\Hfmart\Hfmart.File\obj\Release\net5.0\PubTmp\Out\appsettings.Development.json
+E:\16.HfMartVn\Hfmart\Hfmart.File\obj\Release\net5.0\PubTmp\Out\appsettings.json
+E:\16.HfMartVn\Hfmart\Hfmart.File\obj\Release\net5.0\PubTmp\Out\Resources\img\seo\banner-seo-an-hat-vn.jpg
+E:\16.HfMartVn\Hfmart\Hfmart.File\obj\Release\net5.0\PubTmp\Out\Hfmart.File.dll
+E:\16.HfMartVn\Hfmart\Hfmart.File\obj\Release\net5.0\PubTmp\Out\Hfmart.File.deps.json
+E:\16.HfMartVn\Hfmart\Hfmart.File\obj\Release\net5.0\PubTmp\Out\Hfmart.File.runtimeconfig.json
+E:\16.HfMartVn\Hfmart\Hfmart.File\obj\Release\net5.0\PubTmp\Out\Hfmart.File.pdb

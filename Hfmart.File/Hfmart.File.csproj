@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\img\seo\banner-seo-an-hat-vn.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\img\seo\banner-seo-an-hat-vn.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Resources\img\banner\" />
+  </ItemGroup>
+
+</Project>

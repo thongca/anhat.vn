@@ -1,0 +1,179 @@
+    <!-- Breadcrumb Section Begin -->
+<section class="breadcrumb-section set-bg" data-setbg="img/breadcrumb.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="breadcrumb__text">
+                    <h2>Thanh toán đơn hàng</h2>
+                    <div class="breadcrumb__option">
+                        <a href="./index.html">Home</a>
+                        <span>Checkout</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Breadcrumb Section End -->
+<!-- Checkout Section Begin -->
+<section class="checkout spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h6>
+                    <span class="icon_tag_alt"></span> Have a coupon? <a href="#">Click here</a> to enter your code
+                </h6>
+            </div>
+        </div>
+        <div class="checkout__form">
+            <h4>Chi tiết hóa đơn</h4>
+            <form action="#">
+                <div class="row">
+                    <div class="col-lg-8 col-md-6">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="checkout__input">
+                                    <p>Họ và tên<span>*</span></p>
+                                    <input id="name" type="text">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="checkout__input">
+                                    <p>Điện thoại<span>*</span></p>
+                                    <input id="mobile" type="text">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="checkout__input">
+                            <p>Địa chỉ giao hàng<span>*</span></p>
+                            <input id="address" type="text" placeholder="Vui lòng nhập địa chỉ giao hàng" class="checkout__input__add">
+                        </div>
+
+                        <div class="checkout__input">
+                            <p>Ghi chú đơn hàng(nếu có)</p>
+                            <textarea id="note" type="text" class="form-control" placeholder="Ghi chú về đơn đặt hàng của bạn, ví dụ: những lưu ý đặc biệt khi giao hàng."></textarea>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="checkout__order">
+                            <h4>Đơn hàng của bạn</h4>
+                            <div class="checkout__order__products">Sản phẩm <span>Tổng</span></div>
+                            <ul class="order-product-checkout">
+                            </ul>
+                            <div class="checkout__order__total"></div>
+
+                            <div class="checkout__input__checkbox">
+                                <label for="payment">
+                                    Thanh toán khi nhận hàng
+                                    <input type="checkbox" id="payment">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                            @*<div class="checkout__input__checkbox">
+                                    <label for="paypal">
+                                        Momo
+                                        <input type="checkbox" id="paypal">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>*@
+                            <button type="submit" class="site-btn" onclick="paymentOrder()">Thanh toán đơn hàng</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+<!-- Checkout Section End -->
+<script>
+    function loadUlCart() {
+        let inCartStr = localStorage.getItem('cart');
+        var carts = null;
+        if (inCartStr) {
+            carts = JSON.parse(inCartStr);
+        } else {
+            return;
+        }
+        var totalcart = localStorage.getItem('totalcart');
+        if (!totalcart) {
+            totalcart = '';
+        }
+        var rows = ""
+        if (carts.length > 0) {
+            for (i = 0; i < carts.length; i++) {
+                const name = `<li>${carts[i].name} <span>${formatter.format(carts[i].total)}</span></li>`;
+                rows += name;
+            }
+
+        }
+        $('.order-product-checkout').html(rows);
+        $('.checkout__order__total').html(`Tiền hàng<span>${formatter.format(totalcart)}</span>`)
+    }
+    function paymentOrder() {
+       
+        let fullName = $('#name').val();
+        let address = $('#address').val();
+        let mobile = $('#mobile').val();
+        let note = $('#note').val();
+        if (!fullName) {
+            toastr.error('Vui lòng nhập tên của bạn!', 'Thông báo');
+            return;
+        }
+        if (!mobile) {
+            toastr.error('Vui lòng nhập số điện thoại của bạn!', 'Thông báo');
+            return;
+        }
+        if (!address) {
+            toastr.error('Vui lòng nhập địa chỉ giao hàng của bạn!', 'Thông báo');
+            return;
+        }
+        let incart = localStorage.getItem('cart');
+        let totalPayment = localStorage.getItem('totalcart');
+        let orderDetail = null;
+        if (incart) {
+            orderDetail = JSON.parse(incart);
+        } else {
+            toastr.error('Đơn hàng không tồn tại!');
+            return;
+        }
+        if (totalPayment) {
+            totalPayment = parseInt(totalPayment);
+        } else {
+            toastr.error('Đơn hàng không tồn tại!');
+            return;
+        }
+        const request = {
+            FullName: fullName,
+            Mobile: mobile,
+            AddressDelivery: address,
+            OrderDelivery: address,
+            Note: note,
+            TotalPayment: totalPayment,
+            OrderDetails: orderDetail
+        }
+        $.ajax({
+            url: "http://localhost:21994/api/order/addOrder",
+            method: "POST",
+            data: JSON.stringify(request),
+            dataType: 'json',
+            contentType: "application/json",
+            success: function (result, status, jqXHR) {
+                toastr.success('Cảm ơn bạn đã tin tưởng mua hàng của chúng tôi!', 'Thành toán thành công');
+                localStorage.removeItem('cart');
+                localStorage.removeItem('totalcart');
+                countCartLayout();
+            },
+            error(jqXHR, textStatus, errorThrown) {
+                //Do something
+            }
+        });
+
+    }
+    function init() {
+        setTimeout(() => {
+            this.loadUlCart();
+        }, 100)
+
+    }
+    this.init();
+</script> 

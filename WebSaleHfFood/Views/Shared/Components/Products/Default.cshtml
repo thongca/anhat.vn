@@ -1,0 +1,62 @@
+﻿@model WebSaleHfFood.ViewModels.ProductHomeViewModel
+@*<div class="filter__item">
+        <div class="row">
+            <div class="col-lg-4 col-md-5">
+                <div class="filter__sort">
+                    <span>Sort By</span>
+                    <select>
+                        <option value="0">Default</option>
+                        <option value="0">Default</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4">
+                <div class="filter__found">
+                    <h6><span>16</span> Products found</h6>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-3">
+                <div class="filter__option">
+                    <span class="icon_grid-2x2"></span>
+                    <span class="icon_ul"></span>
+                </div>
+            </div>
+        </div>
+    </div>*@
+@if (Model.Total > 0)
+{
+    <section id="@Model.GroupId" class="featured spad">
+        <div class="product__discount">
+            <div class="section-title product__discount__title">
+                <h2>@Html.DisplayFor(c => Model.CategoryName)</h2>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        @foreach (var item in Model.Products)
+                        {
+                            <div class="col-lg-4 col-md-6 col-sm-6">
+                                <div class="product__item">
+                                    <div class="product__item__pic set-bg" data-setbg="@Url.Content(item.Img)">
+                                        <ul class="product__item__pic__hover">
+                                            <li><a href="#"><i class="fa fa-heart"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-retweet"></i></a></li>
+                                            <li><a class="btn-add-cart" style="cursor: pointer" onclick="addToCartFull('@item.Id', '@item.Name', '@item.Img', @item.Price, @item.Price, '@item.SizeId', '@item.Unit', '@item.Size')"><i class="fa fa-shopping-cart"></i></a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="product__item__text">
+                                        @*<h6><a class="cursor-link" asp-controller="ShopDetail" asp-action="index" asp-route-variantId="@item.VariantId" onclick="addProductRecent('@item.VariantId', '@item.Img', '@item.Name', '@DateTime.Now', @item.Price)">@Html.DisplayFor(a => item.Name)</a></h6>*@
+                                        <h6><a class="cursor-link" onclick="addProductRecent('@item.VariantId', '@item.Img', '@item.Name', '@DateTime.Now', @item.Price)">@Html.DisplayFor(a => item.Name)</a></h6>
+                                        <h5>@Html.DisplayFor(a => item.Price)</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+}
+
