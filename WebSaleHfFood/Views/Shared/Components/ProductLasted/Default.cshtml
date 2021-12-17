@@ -1,0 +1,18 @@
+﻿@model IEnumerable<WebSaleHfFood.ViewModels.ProductLastedViewModel>
+<div class="latest-prdouct__slider__item">
+    @foreach (var item in Model)
+    {
+        <a href="#" onclick="addProductRecent('@item.Id', '@item.Img', '@item.Name', '@DateTime.Now', @item.Price)" class="latest-product__item">
+            <div class="latest-product__item__pic">
+                <img src="@Url.Content(item.Img)" alt="">
+            </div>
+            <div class="latest-product__item__text">
+                <h6>@Html.DisplayFor(ite => item.Name)</h6>
+                <span>@Html.DisplayFor(ite => item.Price)</span>
+            </div>
+        </a>
+    }
+
+</div>
+
+

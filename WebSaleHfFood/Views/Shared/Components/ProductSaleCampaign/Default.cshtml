@@ -1,0 +1,26 @@
+﻿@model IEnumerable<WebSaleHfFood.ViewModels.ProductSaleViewModel>
+<div class="container">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-lg-4">
+                <div class="product__discount__item">
+                    <div class="product__discount__item__pic set-bg"
+                         data-setbg="@Url.Content(item.ImgHome)">
+                        <div class="product__discount__percent">-@Html.DisplayFor(modelItem => item.PercentDiscount)%</div>
+                        <ul class="product__item__pic__hover">
+                            <li><a href="#"><i class="fa fa-heart"></i></a></li>
+                            <li><a href="#"><i class="fa fa-retweet"></i></a></li>
+                            <li><a class="btn-add-cart" style="cursor: pointer" onclick="addToCartFull('@item.Id', '@item.Name', '@item.ImgHome', @item.Price, @item.SalePrice, '@item.SizeId', '@item.Unit', '@item.Size')"><i class="fa fa-shopping-cart"></i></a></li>
+                        </ul>
+                    </div>
+                    <div class="product__discount__item__text">
+                        <span>@Html.DisplayFor(modelItem => item.Catagory)</span>
+                        <h5><a class="cursor-link" onclick="addProductRecent('@item.Id','@item.Name', @DateTime.Now,@item.Price)">@Html.DisplayFor(modelItem => item.Name)</a></h5>
+                        <div class="product__item__price">@Html.DisplayFor(modelItem => item.SalePrice) <span>@Html.DisplayFor(modelItem => item.Price)</span></div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
