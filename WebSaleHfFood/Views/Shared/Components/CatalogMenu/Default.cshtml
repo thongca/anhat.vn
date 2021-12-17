@@ -1,7 +1,0 @@
-﻿@model IEnumerable<WebSaleHfFood.ViewModels.ProductGroupViewModel>
-<ul>
-    @foreach (var item in Model)
-    {
-        <li><a asp-controller="Home"  asp-route-groupId="@item.Id">@Html.DisplayFor(modelItem => item.Name)</a></li>
-    }
-</ul>
