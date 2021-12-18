@@ -195,7 +195,7 @@ function addProductRecent(_id, _img, _name, _date, _price) {
  * @param {any} _date
  */
 function addNewsRecent(_id, _title, _date, _img) {
-    window.location.assign('BlogDetail/Index?id=' + _id)
+    window.location.assign('NewsDetail/Index?id=' + _id)
     const data = { id: _id, title: _title, date: _date, img: _img };
     const newsrecentsLocal = JSON.parse(localStorage.getItem('newsrecent'));
     const newsrecents = [];
