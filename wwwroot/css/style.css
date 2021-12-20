@@ -2566,6 +2566,7 @@ ol {
 
 .blog__details__text img {
 	margin-bottom: 30px;
+	object-fit: contain;
 }
 
 .blog__details__text p {
