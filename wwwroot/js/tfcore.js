@@ -26,13 +26,28 @@ function updateQuantityCartLayout(_id, cartOlds) {
  * @param {any} _id
  * @param {any} cartOlds
  */
+//function updateQuantityInCart(_id, cartOlds, _quantity) {
+//    let index = cartOlds.findIndex(x => x.id == _id);
+//    if (index > -1) {
+//        cartOlds[index].quantity = _quantity;
+//    }
+//    localStorage.setItem('cart', JSON.stringify(cartOlds));
+//    this.countMoneyTotalRow();
+//}
 function updateQuantityInCart(_id, cartOlds, _quantity) {
-    let index = cartOlds.findIndex(x => x.id == _id);
-    if (index > -1) {
-        cartOlds[index].quantity = _quantity;
-    }
-    localStorage.setItem('cart', JSON.stringify(cartOlds));
-    this.countMoneyTotalRow();
+    return new Promise(function (resolve, reject) {
+        let index = cartOlds.findIndex(x => x.id == _id);
+        if (index > -1) {
+            cartOlds[index].quantity = _quantity;
+        }
+        localStorage.setItem('cart', JSON.stringify(cartOlds));
+        this.countMoneyTotalRow().then(
+            function (value) {
+                resolve(true);
+            }
+        );
+       
+    });
 }
 function countCartLayout() {
     const totalOrder = localStorage.getItem('totalcart');
@@ -96,7 +111,6 @@ function addToCart(_id, _name, _img) {
  * @param {any} _img
  */
 function addToCartFull(_id, _name, _img, _price, _salePrice, _sizeId, _unit, _size) {
-    debugger
     let cartOlds = JSON.parse(localStorage.getItem('cart'));
     if (!cartOlds) {
         cartOlds = [];
@@ -149,15 +163,19 @@ function checkProductInCart(_id, price, _cartOlds) {
 }
 /** Đếm số tiền của từng sản phẩm, và tổng lượng tiền */
 function countMoneyTotalRow() {
-    let carts = JSON.parse(localStorage.getItem('cart'));
-    for (var i = 0; i < carts.length; i++) {
-        carts[i].total = carts[i].salePrice * carts[i].quantity;
-    }
-    const total = carts.reduce(function (a, b) {
-        return a + b.total;
-    }, 0)
-    localStorage.setItem('cart', JSON.stringify(carts))
-    localStorage.setItem('totalcart', total.toString())
+    return new Promise(function (res, rej) {
+        let carts = JSON.parse(localStorage.getItem('cart'));
+        for (var i = 0; i < carts.length; i++) {
+            carts[i].total = carts[i].salePrice * carts[i].quantity;
+        }
+        const total = carts.reduce(function (a, b) {
+            return a + b.total;
+        }, 0)
+        localStorage.setItem('cart', JSON.stringify(carts))
+        localStorage.setItem('totalcart', total.toString())
+        res(true);
+    });
+   
 }
 /**
  * Thêm sản phẩm đã xem gần đây
