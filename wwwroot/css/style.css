@@ -3622,3 +3622,26 @@ ol {
 	padding-top: 0;
 	height: 28px;
 }
+
+/*Chi tiết sản phẩm*/
+.review__product__star__header__box {
+;
+}
+.review__product__star__header__img {
+	
+}
+.review__product__star__header__img img {
+	width: 50%;
+}
+.review__product__star__header__action{
+	
+}
+.nonactive_box_identity{
+	display: none;
+}
+.active_box_identity {
+	display: normal;
+}
+.icon__star__review_product {
+	color: #EDBB0E;
+}
